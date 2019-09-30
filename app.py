@@ -37,7 +37,6 @@ def upload_file():
 
 @app.route('/download')
 def downloadFile ():
-    #For windows you need to use drive name [ex: F:/Example.pdf]
     path = "C:/Users/KR/Desktop/Khushei_resume.pdf"
     return send_file(path, as_attachment=True)
 
