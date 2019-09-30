@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, render_template
+from flask import Flask, flash, request, redirect, url_for, render_template, send_file
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
@@ -18,9 +18,7 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
-    print("check")
     if request.method == 'POST':
-        print("check1")
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -32,18 +30,21 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            #filename = request.files['file']
-            #filename.save(secure_filename(file.filename))
-            print("check2")
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             return redirect(url_for('uploaded_file'))
     return render_template('screen1.html')
 
-@app.route('/uploads')
-def uploaded_file(filename):
-    print("check3")
-    #return send_from_directory(app.config['UPLOAD_FOLDER'],  filename)
+@app.route('/download')
+def downloadFile ():
+    #For windows you need to use drive name [ex: F:/Example.pdf]
+    path = "C:/Users/KR/Desktop/Khushei_resume.pdf"
+    return send_file(path, as_attachment=True)
+
+@app.route('/uploads', methods = ['GET', 'POST'])
+def uploaded_file():
+    if request.method=='POST':
+        return redirect(url_for('downloadFile'))
     return render_template('file_upload_result.html')
 
 if __name__ == "__main__":
