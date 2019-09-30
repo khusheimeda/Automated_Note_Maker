@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    {% extends "layout.html" %}
+    <body>
+        {% block content %}
+        WELCOME
+        {% endblock %}
+      {% block footer %}
+      <p>
+          <form action = "http://localhost:5000/uploader" method = "POST"
+         enctype = "multipart/form-data">
+            <br><br>
+         <input type = "file" name = "file" />
+         <input type = "submit" value = "Upload"/>
+      </form>
+      </p>
+      {% endblock %}
+</body>
+</html>
