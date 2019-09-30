@@ -7,7 +7,6 @@ UPLOAD_FOLDER = 'C:/Users/KR/PycharmProjects/Automated_Note_Maker'
 ALLOWED_EXTENSIONS = {'mp3', 'wav', 'dct'}
 
 app = Flask(__name__)
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 path = 'C:/Users/KR/PycharmProjects/Automated_Note_Maker'
