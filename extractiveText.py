@@ -2,7 +2,9 @@ from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 import numpy as np
 import networkx as nx
+from textblob import TextBlob
 import os
+from nltk import word_tokenize, pos_tag
 
 def read_article(file_name):
     file = open(file_name, "r")
@@ -103,3 +105,26 @@ for i in article:
     k+=1
 f.close()
 f1.close()
+os.remove('filtered_msft.txt')
+
+f = open('filtered_msft_1.txt')
+l = f.read()
+blob = TextBlob(l)
+tagged_sent = pos_tag(l.split())
+propernouns = [word for word,pos in tagged_sent if pos == 'NNP']
+print(propernouns)
+s=''
+for i in l:
+    if i != ' ':
+        s+=i
+    else:
+        if s in propernouns:
+            #l.replace(s, "*" + s + '*')
+            #l.replace(s, "\033[44;33mHello World!\033[m")
+            l.replace(s, '\033[44;33m{}\033[m'.format(s))
+        s = ''
+f.close()
+
+
+
+
