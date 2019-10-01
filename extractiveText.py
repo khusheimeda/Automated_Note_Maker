@@ -125,15 +125,23 @@ tagged_sent = pos_tag(l.split())
 propernouns = [word for word,pos in tagged_sent if pos == 'NNP']
 
 doc = Document('C:/Users/KR/PycharmProjects/Automated_Note_Maker/filtered_msft_1.docx')
+doc1 = Document()
 #source = sys.argv[1]
 l = l.split()
-para = doc.add_paragraph('')
+
+para = doc1.add_paragraph('')
 for i in l:
     if i not in propernouns:
-        para.add_run(i)
+        if(i[0].isnumeric() and i[1] == '.'):
+            para.add_run('\n')
+            para.add_run(i)
+        else:
+            para.add_run(i)
+            para.add_run(' ')
     else:
         para.add_run(i).bold = True
-
+        para.add_run(' ')
+doc1.save('C:/Users/KR/PycharmProjects/Automated_Note_Maker/filtered_msft_2.docx')
 
 
 """for i in doc.paragraphs:
