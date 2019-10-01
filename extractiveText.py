@@ -93,7 +93,6 @@ for i in points:
     file_obj.write('\n')
 file_obj.close()
 
-
 f = open('filtered_msft.txt', 'r')
 f1 = open('filtered_msft_1.txt', 'w')
 k = 1
