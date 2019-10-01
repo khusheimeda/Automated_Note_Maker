@@ -113,7 +113,7 @@ blob = TextBlob(l)
 tagged_sent = pos_tag(l.split())
 propernouns = [word for word,pos in tagged_sent if pos == 'NNP']
 print(propernouns)
-s=''
+s = ''
 for i in l:
     if i != ' ':
         s+=i
