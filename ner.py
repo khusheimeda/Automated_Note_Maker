@@ -30,6 +30,7 @@ for i in l:
     f.write('\n')
 f.close()
 
+#get noun phrases
 f = open('new.txt', 'r')
 article = f.read()
 f.close()
