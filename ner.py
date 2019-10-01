@@ -24,7 +24,7 @@ file1 = open("filteredtext.txt")
 article = file1.read()
 file1.close()
 l = re.split(r'[ ](?=[A-Z])', article)
-f = open("new.txt", 'a+')
+f = open("new.txt", 'w')
 for i in l:
     f.write(i)
     f.write('\n')
@@ -32,16 +32,31 @@ f.close()
 
 #get noun phrases
 f = open('new.txt', 'r')
-article = f.read()
+f1 = open('new1.txt', 'w')
+k = 1
+article = f.readlines()
+for i in article:
+    if i != '\n':
+        blob = TextBlob(i)
+        f1.write(str(k))
+        f1.write('.\n')
+        for j in blob.noun_phrases:
+            f1.write('\t*' + j)
+            f1.write('\n')
+        k+=1
+f.close()
+f1.close()
+
+
+"""
 f.close()
 blob = TextBlob(article)
-print(blob.noun_phrases)
-f = open('new1.txt', 'a+')
+f = open('new1.txt', 'w+')
 for i in blob.noun_phrases:
-    f.write(i)
+    f.write('*' + i)
     f.write('\n')
 f.close()
-
+"""
 """def fn_preprocess(art):
     art = nltk.word_tokenize(art)
     art = nltk.pos_tag(art)
