@@ -5,6 +5,10 @@ import networkx as nx
 from textblob import TextBlob
 import os
 from nltk import word_tokenize, pos_tag
+from docx.enum.text import WD_COLOR_INDEX
+from docx import Document
+import re
+import sys
 
 def read_article(file_name):
     file = open(file_name, "r")
@@ -105,9 +109,52 @@ for i in article:
     k+=1
 f.close()
 f1.close()
-os.remove('filtered_msft.txt')
+#os.remove('filtered_msft.txt')
+
+document = Document()
+myfile = open('filtered_msft_1.txt').read()
+myfile = re.sub(r'[^\x00-\x7F]+|\x0c',' ', myfile) # remove all non-XML-compatible characters
+p = document.add_paragraph(myfile)
+document.save('C:/Users/KR/PycharmProjects/Automated_Note_Maker/filtered_msft_1'+'.docx')
+#os.remove('filtered_msft_1.txt')
 
 f = open('filtered_msft_1.txt')
+l = f.read()
+blob = TextBlob(l)
+tagged_sent = pos_tag(l.split())
+propernouns = [word for word,pos in tagged_sent if pos == 'NNP']
+
+doc = Document('C:/Users/KR/PycharmProjects/Automated_Note_Maker/filtered_msft_1.docx')
+#source = sys.argv[1]
+l = l.split()
+para = doc.add_paragraph('')
+for i in l:
+    if i not in propernouns:
+        para.add_run(i)
+    else:
+        para.add_run(i).bold = True
+
+
+
+"""for i in doc.paragraphs:
+    txt = i.runs[0].text"""
+
+doc.save('C:/Users/KR/PycharmProjects/Automated_Note_Maker/filtered_msft_1.docx')
+
+'''for paragraph in document.paragraphs:
+    for pn in propernouns:
+        if pn in paragraph.text:
+            for run in paragraph.runs:
+                if pn in run.text:
+                    x = run.text.split(pn)
+                    run.clear()
+                    for i in range(len(x)-1):
+                        run.add_text(x[i])
+                        run.add_text(pn)
+                        run.font.highlight_color = WD_COLOR_INDEX.YELLOW
+'''
+
+"""f = open('filtered_msft_1.txt')
 l = f.read()
 blob = TextBlob(l)
 tagged_sent = pos_tag(l.split())
@@ -124,7 +171,4 @@ for i in l:
             l.replace(s, '\033[44;33m{}\033[m'.format(s))
         s = ''
 f.close()
-
-
-
-
+"""
