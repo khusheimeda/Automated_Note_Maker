@@ -148,35 +148,3 @@ doc1.save('C:/Users/KR/PycharmProjects/Automated_Note_Maker/filtered_msft_2.docx
     txt = i.runs[0].text"""
 
 doc.save('C:/Users/KR/PycharmProjects/Automated_Note_Maker/filtered_msft_1.docx')
-
-'''for paragraph in document.paragraphs:
-    for pn in propernouns:
-        if pn in paragraph.text:
-            for run in paragraph.runs:
-                if pn in run.text:
-                    x = run.text.split(pn)
-                    run.clear()
-                    for i in range(len(x)-1):
-                        run.add_text(x[i])
-                        run.add_text(pn)
-                        run.font.highlight_color = WD_COLOR_INDEX.YELLOW
-'''
-
-"""f = open('filtered_msft_1.txt')
-l = f.read()
-blob = TextBlob(l)
-tagged_sent = pos_tag(l.split())
-propernouns = [word for word,pos in tagged_sent if pos == 'NNP']
-print(propernouns)
-s = ''
-for i in l:
-    if i != ' ':
-        s+=i
-    else:
-        if s in propernouns:
-            #l.replace(s, "*" + s + '*')
-            #l.replace(s, "\033[44;33mHello World!\033[m")
-            l.replace(s, '\033[44;33m{}\033[m'.format(s))
-        s = ''
-f.close()
-"""
