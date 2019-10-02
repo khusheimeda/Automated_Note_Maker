@@ -9,3 +9,4 @@ encoding = html_encoding or http_encoding
 soup = BeautifulSoup(resp.content, from_encoding=encoding)
 for link in soup.find_all('a', href=True):
     print(link['href'])
+
