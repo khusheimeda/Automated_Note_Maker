@@ -9,12 +9,34 @@ from nltk.corpus import stopwords
 from nltk.cluster.util import cosine_distance
 import numpy as np
 import networkx as nx
- 
-def read_article(file_name):
+def include(file_name):
+    sentences=[]
+    
+    keywords=["diagram","diagrams","image","images","flowchart","flowcharts","picture","pictures","table","tables","image","images"]
+    file=open(file_name,"r")
+    lines=file.readlines()
+    file.close()
+    for i in lines:
+        
+        words=i.split(" ")
+        print(words)
+        if "diagram" in words:
+            print("here")
+        for j in words:
+            #print("here")
+            
+            if j=="diagram":
+                
+                sentences.append(i)
+                print("here")
+    return sentences
+            
+    
+def read_article(file_name,sentences):
     file = open(file_name, "r")
     filedata = file.readlines()
     article = filedata[0].split(". ")
-    sentences = []
+    
 
     for sentence in article:
        # print(sentence)
@@ -59,15 +81,15 @@ def build_similarity_matrix(sentences, stop_words):
                 continue 
             similarity_matrix[idx1][idx2] = sentence_similarity(sentences[idx1], sentences[idx2], stop_words)
 
+
     return similarity_matrix
 
-
-def generate_summary(file_name, top_n=5):
+def generate_summary(file_name,sentences, top_n=5):
     stop_words = stopwords.words('english')
     summarize_text = []
 
     # Step 1 - Read text anc split it
-    sentences =  read_article(file_name)
+    sentences =  read_article(file_name,sentences)
 
     # Step 2 - Generate Similary Martix across sentences
     sentence_similarity_martix = build_similarity_matrix(sentences, stop_words)
@@ -88,6 +110,11 @@ def generate_summary(file_name, top_n=5):
     return (". ".join(summarize_text)) 
 
 # let's begin
-concise=generate_summary( "msft.txt", 2)
+sentences=include("msft.txt")
+concise=generate_summary( "msft.txt",sentences, 2)
 points=concise.split(",")
 print(points)
+f=open("concise.txt","w")
+for i in points:
+    f.write("->"+i+"\n")
+f.close()

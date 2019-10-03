@@ -2,7 +2,6 @@ import os
 from flask import Flask, flash, request, redirect, url_for, render_template, send_file
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
-#from flask_autoindex import AutoIndex
 
 
 UPLOAD_FOLDER = 'C:/Users/KR/PycharmProjects/Automated_Note_Maker'
@@ -53,7 +52,6 @@ def downloadFile ():
             path = 'C:/Users/KR/PycharmProjects/Automated_Note_Maker/references.docx'
         #return redirect(url_for('df'), path1=path1)
     return send_file(path, as_attachment=True)
-   # AutoIndex(app, browse_root=static_path)
 
 @app.route('/uploads', methods = ['GET', 'POST'])
 def uploaded_file():

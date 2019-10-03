@@ -3,20 +3,19 @@
     {% extends "layout.html" %}
     <body>
         {% block content %}
-        WELCOME
-        {% endblock %}
-      {% block footer %}
+        <p style = "text-align: center; color: white; font-size: 40px;">Automated Note Maker</p>
+
+        <div style="font-size = 80px; color= white;">
       <p>
           <form action = "" method = "POST"
          enctype = "multipart/form-data">
-            <br><br>
-            <label>Upload</label>
-            <input type = "file" name = "file" />
+            <p style = "color: white; font-size: 20px;">Upload</p>
+            <input type = "file" name = "file"  />
            <!-- <label>Enter URL</label>
             <input type="url" name="link">-->
          <input type = "submit" value = "Upload"/>
       </form>
-      </p>
+            </p></div>
       {% endblock %}
 </body>
 </html>
